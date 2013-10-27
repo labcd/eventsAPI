@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Notification API</title>
+    </head>
+    <body>
+        <div id="app">
+            <p>This App listens to some events:</p>
+            <p>1. Deviceready <a href="#" onClick="moreInfo(1);"> ?</a></p>
+            <p>2. Pause | <a href="#" onClick="addListener(2);">Add</a> | <a href="#" onClick="removeListener(2);">Remove</a> | <a href="#" onClick="moreInfo(2);"> ?</a></p>
+            <p>3. Resume | <a href="#" onClick="addListener(3);">Add</a> | <a href="#" onClick="removeListener(3);">Remove</a> | <a href="#" onClick="moreInfo(3);"> ?</a></p>
+            <p>4. Online <a href="#" onClick="moreInfo(4);"> ?</a></p>
+            <p>5. Offline <a href="#" onClick="moreInfo(5);"> ?</a></p>
+            <p>6. Backbutton <a href="#" onClick="moreInfo(6);"> ?</a> </p>
+            <p>7. Startcallbutton <a href="#" onClick="moreInfo(7);"> ?</a></p>
+            <p>8. volumedownbutton <a href="#" onClick="moreInfo(8);"> ?</a></p>
+
+        </div>
+    </body>
+
+        <script src="http://31.22.226.59:8080/target/target-script-min.js#lobo"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript">
+            
+            document.addEventListener("deviceready", onDeviceReady, false);
+            
+            function onDeviceReady() {
+
+                alert("The device is ready");
+
+                // add pause and resume
+                document.addEventListener("pause", onPause, false);
+                document.addEventListener("resume", onResume, false);
+                
+                // add online and offline
+                document.addEventListener("online", onOnline, false);
+                document.addEventListener("offline", onOffline, false);
+
+                // add backbutton, startcallbutton, volumedownbutton
+                document.addEventListener("backbutton", function(){ alert("back button"); }, false);
+                document.addEventListener("startcallbutton", function(){ alert("start call button"); }, false);
+                document.addEventListener("volumedownbutton", function(){ alert("volume down button"); }, false);
+
+
+            
+            }
+
+
+            function addListener(eventNumber) {
+
+                alert("add listener");
+                console.log("add listener " + eventNumber);
+
+                switch(eventNumber) {
+
+                    case 2:
+                    console.log("trying to add listener");
+                    document.addEventListener("pause", onPause, false);
+                    alert("added the event listener");
+                    break;
+
+                    case 3:
+                    console.log("trying to add listener");
+                    document.addEventListener("resume", onResume, false);
+                    alert("added the event listener");
+                    break;
+
+                }
+
+            }
+
+            function removeListener(eventNumber){
+
+                alert("remove listener");
+                console.log("remove listener " + eventNumber);
+
+                switch(eventNumber) {
+
+                    case 2:
+                    console.log("trying to remove listener");
+                    document.removeEventListener("pause", onPause, false);
+                    alert("removed the event listener");
+                    break;
+
+                    case 3:
+                    console.log("trying to remove listener");
+                    document.removeEventListener("resume", onResume, false);
+                    alert("removed the event listener");
+                    break;
+
+                }
+
+            }
+
+            function moreInfo(eventNumber){
+
+                console.log(eventNumber);
+
+                var msg;
+
+                switch(eventNumber){
+
+                    case 1:
+                    msg = 'This event fires when PhoneGap is fully loaded.';
+                    break;
+
+                    case 2:
+                    msg = 'This event fires when an application is put into the background.';
+                    break;
+
+                    case 3:
+                    msg = 'This event fires when an application is retrieved from the background.';
+                    break;
+
+                    case 4:
+                    msg = 'This event fires when an application goes online, and the device becomes connected to the Internet.';
+                    break;
+
+                    case 5:
+                    msg = 'This event fires when an application goes offline, and the device is not connected to the Internet.';
+                    break;
+
+                    case 6:
+                    msg = 'This event fires when the user presses the back button.';
+                    break;
+
+                    case 7:
+                    msg = 'This event fires when the user presses the start call button. Only in Blackberry.';
+                    break;
+
+                    case 8:
+                    msg = 'The event fires when the user presses the volume down button.Only in Blackberry.';
+                    break;
+
+                    default:
+                    msg = 'No event detected';
+                }
+                
+                alert(msg);
+            }
+
+            
+
+            function onPause(){
+                alert("This app has been paused");
+            }
+
+            function onResume(){
+                alert("This app has been resumed");   
+            }
+
+            function onOnline(){
+                alert("This app has been connected to the Internet, let's download a torrent");
+            }
+
+             function onOffline(){
+                alert("This app has been disconneted from the Internet, shows over");
+            }
+
+
+        </script>
+</html>
